@@ -133,22 +133,40 @@ class Game extends React.Component {
       </div> 
     )
   }
-  render() {
+  renderSemain(){
     const days = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-    const months = ["Jan", "Fev", "Mas", "Avril", "Mai", "Juin", "Juil", "Aout", "Sep", "Oct", "Nov", "Dec"];
+    const t = [-6, 0, -1, -2, -3, -4, -5];
+    const months = ["Jan", "Fév", "Mas", "Avril", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
     const d = new Date();
-    let month = months[d.getMonth()];   
+   
     let day = d.getDay();
     let jour_du_mois = d.getDate();
+    var boxArray;
+    boxArray = [];
+    var e = t[day]
+    console.log(e)
+    for ( var i = 1; i < 8; i++ ){
+        let j = d.getDate();
+        d.setDate(j + e);
+        j = d.getDate();
+        let month = months[d.getMonth()]; 
+        boxArray.push(this.renderBoard(""+days[i%7]+" "+j+" "+month))
+        e=1;
+      }
+    return boxArray
+  }
+
+
+
+  
+  render() {
+
 
     return (
       <div className="game">
         {this.renderBoardInit()}
-        {this.renderBoard(""+days[(day-2)%6]+" "+(jour_du_mois-2)%31+" "+month)}
-        {this.renderBoard(""+days[(day-1)%6]+" "+(jour_du_mois-1)%31+" "+month)}
-        {this.renderBoard(""+days[day]+" "+jour_du_mois+" "+month)}
-        {this.renderBoard(""+days[(day+1)%6]+" "+(jour_du_mois+1)%31+" "+month)}
-        {this.renderBoard(""+days[(day+2)%6]+" "+(jour_du_mois+2)%31+" "+month)}
+   
+        {this.renderSemain()}
         <div className="game-info">
           <ol>{/* TODO */}</ol>
         </div>
