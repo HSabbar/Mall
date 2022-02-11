@@ -1,185 +1,173 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import moment from 'moment';
 import './index.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import _ from 'lodash'
 
+const localizer = momentLocalizer(moment);
+const propTypes = {}
 
-class Square extends React.Component {
+class App extends Component {
+  constructor() {
+    super();
+    const now = new Date();
+    const events = [
+      {
+          id: 0,
+          title: 'All Day Event very long title',
+          allDay: true,
+          start: new Date(2015, 3, 0),
+          end: new Date(2015, 3, 1),
+      },
+      {
+          id: 1,
+          title: 'Long Event',
+          start: new Date(2015, 3, 7),
+          end: new Date(2015, 3, 10),
+      },
 
-  constructor (props) {
-    super(props)
-    this.state = {n: null}
+      {
+          id: 2,
+          title: 'DTS STARTS',
+          start: new Date(2016, 2, 13, 0, 0, 0),
+          end: new Date(2016, 2, 20, 0, 0, 0),
+      },
+
+      {
+          id: 3,
+          title: 'DTS ENDS',
+          start: new Date(2016, 10, 6, 0, 0, 0),
+          end: new Date(2016, 10, 13, 0, 0, 0),
+      },
+
+      {
+          id: 4,
+          title: 'Some Event',
+          start: new Date(2015, 3, 9, 0, 0, 0),
+          end: new Date(2015, 3, 10, 0, 0, 0),
+      },
+      {
+          id: 5,
+          title: 'Conference',
+          start: new Date(2015, 3, 11),
+          end: new Date(2015, 3, 13),
+          desc: 'Big conference for important people',
+      },
+      {
+          id: 6,
+          title: 'Meeting',
+          start: new Date(2015, 3, 12, 10, 30, 0, 0),
+          end: new Date(2015, 3, 12, 12, 30, 0, 0),
+          desc: 'Pre-meeting meeting, to prepare for the meeting',
+      },
+      {
+          id: 7,
+          title: 'Lunch',
+          start: new Date(2015, 3, 12, 12, 0, 0, 0),
+          end: new Date(2015, 3, 12, 13, 0, 0, 0),
+          desc: 'Power lunch',
+      },
+      {
+          id: 8,
+          title: 'Meeting',
+          start: new Date(2015, 3, 12, 14, 0, 0, 0),
+          end: new Date(2015, 3, 12, 15, 0, 0, 0),
+      },
+      {
+          id: 9,
+          title: 'Happy Hour',
+          start: new Date(2015, 3, 12, 17, 0, 0, 0),
+          end: new Date(2015, 3, 12, 17, 30, 0, 0),
+          desc: 'Most important meal of the day',
+      },
+      {
+          id: 10,
+          title: 'Dinner',
+          start: new Date(2015, 3, 12, 20, 0, 0, 0),
+          end: new Date(2015, 3, 12, 21, 0, 0, 0),
+      },
+      {
+          id: 11,
+          title: 'Birthday Party',
+          start: new Date(2015, 3, 13, 7, 0, 0),
+          end: new Date(2015, 3, 13, 10, 30, 0),
+      },
+      {
+          id: 12,
+          title: 'Late Night Event',
+          start: new Date(2015, 3, 17, 19, 30, 0),
+          end: new Date(2015, 3, 18, 2, 0, 0),
+      },
+      {
+          id: 12.5,
+          title: 'Late Same Night Event',
+          start: new Date(2015, 3, 17, 19, 30, 0),
+          end: new Date(2015, 3, 17, 23, 30, 0),
+      },
+      {
+          id: 13,
+          title: 'Multi-day Event',
+          start: new Date(2015, 3, 20, 19, 30, 0),
+          end: new Date(2015, 3, 22, 2, 0, 0),
+      },
+      {
+          id: 14,
+          title: 'Today',
+          start: new Date(new Date().setHours(new Date().getHours() - 3)),
+          end: new Date(new Date().setHours(new Date().getHours() + 3)),
+      },
+      {
+          id: 15,
+          title: 'Point in Time Event',
+          start: now,
+          end: now,
+      },
+    ]
+    this.state = {
+      name: 'React',
+      events: _.cloneDeep(events),
+      dayLayoutAlgorithm: 'no-overlap',
+    };
   }
 
+  handleSelect = ({ start, end }) => {
+    const title = window.prompt('New Event name')
+    if (title)
+      this.setState({
+        events: [
+          ...this.state.events,
+          {
+            start,
+            end,
+            title,
+          },
+        ],
+      })
+  }
   render() {
+//    const { localizer } = this.props
     return (
-    //  <div className="board-row">
-        <div className="square" >
-        </div>
-    //  </div>
-    );
-  }
-}
-
-class Heure extends React.Component {
-
-  constructor (props) {
-    super(props)
-    this.state = {n: null}
-  }
-
-  render() {
-    return (
-    //  <div className="board-row">
-        <div className="heure" >
-          {this.props.value}
-        </div>
-    //  </div>
-    );
-  }
-}
-
-class BoardInit extends React.Component {
-
-  constructor (props) {
-    super(props)
-    this.state = {n: null}
-  }
-
-  renderHeure(i) {
-    return <Heure key={i} value={i}/>;
-  }
-  renderListHeure(v){
-    var boxArray;
-    boxArray = [];
-    for( var i = 0; i < v ; i++ ){
-        boxArray.push(this.renderHeure(i+" h 00  "))
-    }
-    return boxArray
-  }
-  render() {
-    const status = 'Next player: X';
-    return (
-
-      <div className="board1" >
-        <div>{this.props.value}</div>
-        {this.renderListHeure(24)}   
-      </div>
-    );
-  }
-}
-
-class Board extends React.Component {
-
-  constructor (props) {
-    super(props)
-    this.state = {n: null}
-  }
-
-  renderSquare(i) {
-    return <Square key={i}/>;
-  }
-  renderListSquare(v){
-    var boxArray;
-    boxArray = [];
-    for( var i = 0; i < v ; i++ ){
-        boxArray.push(this.renderSquare(i))
-    }
-    return boxArray
-  }
-  select () {
-    var box;
-    var boxArray;
-    boxArray = [];
-    box = document.getElementsByClassName("square");
-    for ( var i = 0; i < box.length; i++ ) (function(i){
-      box[i].onmousemove = function(e) {
-      if(e.buttons == 1 && e.movementY > 0){
-        box[i].style.backgroundColor = "#AFD4F8";
-        box[i].style.border = 0;
-        box[i].style.border = "1px solid #AFD4F8"
-      } else if (e.buttons == 1 && e.movementY < 0){
-        box[i].style.backgroundColor = "white";
-        box[i].style.border = "1px solid #EAF1F7"
-      }    
-    }
-    })(i);
-}
-   
-
-  render() {
-    const status = 'Next player: X';
-    return (
-
-      <div className="Board" onMouseMove={this.select.bind(this)}>
-        <div className="datej" >{this.props.value}</div>
-        {this.renderListSquare(48)}   
-      </div>
-    );
-  }
-}
-
-class Game extends React.Component {
-  renderBoard(i) {
-    return ( 
-      <div className="game-board">
-        <Board value={i}/>
-      </div> 
-    )
-  }
-  renderBoardInit() {
-    return ( 
-      <div className="game-board">
-        <BoardInit/>
-      </div> 
-    )
-  }
-  renderSemain(){
-    const days = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-    const t = [-6, 0, -1, -2, -3, -4, -5];
-    const months = ["Jan", "Fév", "Mas", "Avril", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
-    const d = new Date();
-   
-    let day = d.getDay();
-    let jour_du_mois = d.getDate();
-    var boxArray;
-    boxArray = [];
-    var e = t[day]
-    console.log(e)
-    for ( var i = 1; i < 8; i++ ){
-        let j = d.getDate();
-        d.setDate(j + e);
-        j = d.getDate();
-        let month = months[d.getMonth()]; 
-        boxArray.push(this.renderBoard(""+days[i%7]+" "+j+" "+month))
-        e=1;
-      }
-    return boxArray
-  }
-
-
-
-  
-  render() {
-
-
-    return (
-      <div className="game">
-        {this.renderBoardInit()}
-   
-        {this.renderSemain()}
-        <div className="game-info">
-          <ol>{/* TODO */}</ol>
+      <div>
+        <p>
+          A test for the React Big Calendar.
+        </p>
+        <div style={{ height: ';500pt'}}>
+          <Calendar
+          selectable
+          localizer={localizer}
+          events={this.state.events}
+          defaultView={Views.WEEK}
+          scrollToTime={new Date(1970, 1, 1, 6)}
+          defaultDate={new Date(2015, 3, 12)}
+          onSelectEvent={event => alert(event.title)}
+          onSelectSlot={this.handleSelect}
+          dayLayoutAlgorithm={this.state.dayLayoutAlgorithm}
+          />
         </div>
       </div>
     );
   }
 }
-
-// ========================================
-
-ReactDOM.render(
-  <Game />,
-  document.getElementById('root')
-);
-
-
+render(<App />, document.getElementById('root'));
