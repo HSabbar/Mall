@@ -5,7 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
-
+### `docker pull mongo`
+### `docker run --name test -p 27018:27017 -d mongo:latest`
+### `npm install`
 ### `npm start`
 
 Runs the app in the development mode.\

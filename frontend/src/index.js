@@ -5,7 +5,6 @@ import moment from 'moment';
 import './index.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
-import _ from 'lodash';
 
 
 const localizer = momentLocalizer(moment);
@@ -22,10 +21,6 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    // const response =  await apiClient.get("/");
-    // console.log(response)
-    // this.setState({ events: [response.data] });
-    // console.log(this.state.events[0])
     var self = this
     axios.get('http://localhost:5000/')
       .then(response => {
@@ -59,6 +54,7 @@ class App extends Component {
         }
       })
     result = await result.json();
+
     this.setState({
       events: [
         ...this.state.events,
@@ -75,7 +71,7 @@ class App extends Component {
     return (
       <div>
         <p>
-          A test for the React Big Calendar with mongo.
+          Ubiz Calendar with mongo .
         </p>
         <div style={{ height: ';500pt' }}>
           <Calendar
