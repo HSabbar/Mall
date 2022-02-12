@@ -75,7 +75,7 @@ class App extends Component {
     return (
       <div>
         <p>
-          A test for the React Big Calendar.
+          A test for the React Big Calendar with mongo.
         </p>
         <div style={{ height: ';500pt' }}>
           <Calendar
