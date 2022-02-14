@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React, { Component } from 'react'
+import { render } from 'react-dom'
 import Edt from './edt'
+import Navbar from './composants/Navbar/Navbar'
+import './index.css'
 
 class App extends Component {
   constructor() {
@@ -10,7 +12,7 @@ class App extends Component {
     };
   }
   render() {
-    return <Edt />
+    return (<Navbar />)
   }
 }
 render(<App />, document.getElementById('root'));
