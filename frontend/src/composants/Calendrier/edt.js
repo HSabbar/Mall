@@ -2,7 +2,7 @@
 import React from 'react';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
-import './index.css';
+import '../../index.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
 
