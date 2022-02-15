@@ -2,6 +2,7 @@
 import React from 'react';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
+import 'moment/locale/fr'
 import '../../index.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
@@ -69,7 +70,7 @@ class Edt extends React.Component {
         <p>
           Ubiz Calendar with mongo .
         </p>
-        <div style={{ height: ';500pt' }}>
+        <div style={{ height: '580px' }}>
           <Calendar
             selectable
             localizer={localizer}
