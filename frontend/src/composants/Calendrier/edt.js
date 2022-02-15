@@ -18,7 +18,7 @@ class Edt extends React.Component {
       dayLayoutAlgorithm: 'no-overlap',
     };
   }
-  
+
   componentDidMount = () => {
     var self = this
     axios.get('http://localhost:5000/GetEvent')
@@ -36,7 +36,7 @@ class Edt extends React.Component {
         console.log(error);
       });
   }
-  
+
   handleSelect = async ({ start, end }) => {
     const title = window.prompt('New Event name')
     if (title)
@@ -49,7 +49,7 @@ class Edt extends React.Component {
         }
       })
     result = await result.json();
-    if(result){
+    if (result) {
       this.setState({
         events: [
           ...this.state.events,
@@ -60,7 +60,7 @@ class Edt extends React.Component {
           },
         ],
       })
-    } 
+    }
   }
 
   render() {
@@ -74,7 +74,7 @@ class Edt extends React.Component {
             selectable
             localizer={localizer}
             events={this.state.events}
-            defaultView={Views.WEEK}
+            defaultView={Views.MONTH}
             scrollToTime={new Date(1970, 1, 1, 6)}
             defaultDate={new Date()}
             onSelectEvent={event => alert(event.title)}

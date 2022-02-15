@@ -4,4 +4,6 @@
   padding: 0;
   font-family: 'Montserrat', sans-serif;
 }
-
+.rbc-calendar {
+  min-height: 580px;
+}
