@@ -65,11 +65,11 @@ class Edt extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{textAlign: 'center'}}>
         <p>
-          Ubiz Calendar with mongo .
+        Calendar
         </p>
-        <div style={{ height: ';500pt' }}>
+        <div style={{ height: ';500pt', width: '70%', marginLeft: '15%' }}>
           <Calendar
             selectable
             localizer={localizer}
