@@ -34,14 +34,46 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res, next) => {
-    const events = await Event.find({});
-    res.status(200).json(events);
+	const events = await Event.find({});
+	res.status(200).json(events);
 });
 
 
 app.post("/AddEvent", async (req, resp) => {
 	try {
 		const event = new Event(req.body);
+		let result = await event.save();
+		result = result.toObject();
+		if (result) {
+			resp.send(req.body);
+			console.log(result);
+		} else {
+			console.log("Event already add");
+		}
+
+
+	} catch (e) {
+		resp.send("Something Went Wrong");
+	}
+});
+// router.route('/update').post(function(req,res){
+
+//     kennels.findByIdAndUpdate({"5db6b26730f133b65dbbe459"},{"breed": "Great Dane"}, function(err, result){
+
+//         if(err){
+//             res.send(err)
+//         }
+//         else{
+//             res.send(result)
+//         }
+
+//     })
+// })
+app.post("/UpdateEvent", async (req, resp) => {
+	try {
+		console.log(req.body);
+		const event = new Event(req.body);
+		console.log(event);
 		let result = await event.save();
 		result = result.toObject();
 		if (result) {

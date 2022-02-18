@@ -48,19 +48,19 @@ class Edt extends React.Component {
       const { events } = this.state;
       const idx = events.indexOf(event);
       const updatedEvent = { ...event, start, end };
-
+      // console.log(updatedEvent);
       const nextEvents = [...events];
       nextEvents.splice(idx, 1, updatedEvent);
-      console.log(nextEvents);
+      // console.log(nextEvents);
       this.setState({
         events: nextEvents
       })
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: 'React POST Request Example' })
+        body: JSON.stringify({ updatedEvent })
       };
-      fetch('http://localhost:5000/AddEvent', requestOptions)
+      fetch('http://localhost:5000/UpdateEvent', requestOptions)
         .then(response => response.json())
         .then(data => this.setState({ postId: data.id }));
     }
