@@ -15,7 +15,6 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 
 const localizer = momentLocalizer(moment)
-const propTypes = {}
 const messages = { // new
   allDay: 'toute la journée',
   previous: 'Précédent',
@@ -31,54 +30,52 @@ const messages = { // new
 };
 
 class Edt extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: 'React',
       events: [],
       dayLayoutAlgorithm: 'no-overlap',
     };
     this.moveEvent = this.moveEvent.bind(this);
+    this.onEventResize = this.onEventResize.bind(this)
   }
 
-  moveEvent({ event, start, end }) {
+  moveEvent = async ({ event, start, end }) => {
     const is_sure = window.confirm('vous êtes sûr de changer l\'événement')
 
     if (is_sure) {
       const { events } = this.state;
       const idx = events.indexOf(event);
       const updatedEvent = { ...event, start, end };
-      // console.log(updatedEvent);
+
       const nextEvents = [...events];
       nextEvents.splice(idx, 1, updatedEvent);
-      // console.log(nextEvents);
-      this.setState({
-        events: nextEvents
-      })
+
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ updatedEvent })
       };
-      fetch('http://localhost:5000/UpdateEvent', requestOptions)
-        .then(response => response.json())
-        .then(data => this.setState({ postId: data.id }));
+      let result = await fetch('http://localhost:5000/UpdateEvent', requestOptions)
+      if (result) {
+        this.setState({
+          events: nextEvents
+        })
+      }
+
     }
   }
 
-  resizeEvent({ event, start, end }) {
-    const { events } = this.state;
+  onEventResize = (data) => {
+    const { start, end } = data;
 
-    const nextEvents = events.map(existingEvent => {
-      return existingEvent.id === event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
+    this.setState((state) => {
+      state.events[0].start = start;
+      state.events[0].end = end;
+      return { events: [...state.events] };
     });
-
-    this.setState({
-      events: nextEvents
-    });
-  }
+  };
 
   componentDidMount = () => {
     var self = this
@@ -133,20 +130,21 @@ class Edt extends React.Component {
         <div style={{ height: '580px' }}>
           <DragAndDropCalendar
             selectable
-            culture={i18n.language}
-            views={["month", "week", "day"]}
-            messages={messages}
-            onEventDrop={this.moveEvent}
-            resizable
-            onEventResize={this.resizeEvent}
-            localizer={localizer}
             events={this.state.events}
+            onEventDrop={this.moveEvent}
+            onEventResize={this.onEventResize}
+            resizable
+
+            localizer={localizer}
             defaultView={Views.WEEK}
             scrollToTime={new Date(1970, 1, 1, 6)}
             defaultDate={new Date()}
             onSelectEvent={event => alert(event.title)}
             onSelectSlot={this.handleSelect}
+            messages={messages}
             dayLayoutAlgorithm={this.state.dayLayoutAlgorithm}
+            culture={i18n.language}
+            views={["month", "week", "day"]}
           />
         </div>
       </div>
@@ -154,7 +152,5 @@ class Edt extends React.Component {
   }
 }
 
-
-Edt.propTypes = propTypes
 // export default DndProvider(HTML5Backend)(Edt);
 export default Edt

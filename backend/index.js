@@ -56,34 +56,18 @@ app.post("/AddEvent", async (req, resp) => {
 		resp.send("Something Went Wrong");
 	}
 });
-// router.route('/update').post(function(req,res){
 
-//     kennels.findByIdAndUpdate({"5db6b26730f133b65dbbe459"},{"breed": "Great Dane"}, function(err, result){
-
-//         if(err){
-//             res.send(err)
-//         }
-//         else{
-//             res.send(result)
-//         }
-
-//     })
-// })
 app.post("/UpdateEvent", async (req, resp) => {
 	try {
-		console.log(req.body);
-		const event = new Event(req.body);
+		const user_id = req.body.updatedEvent._id
+		const event = { start: req.body.updatedEvent.start, end: req.body.updatedEvent.end };
 		console.log(event);
-		let result = await event.save();
-		result = result.toObject();
+		let result = await Event.findByIdAndUpdate(user_id, event);
 		if (result) {
-			resp.send(req.body);
-			console.log(result);
+			resp.send(req.body.updatedEvent);
 		} else {
 			console.log("Event already add");
 		}
-
-
 	} catch (e) {
 		resp.send("Something Went Wrong");
 	}
