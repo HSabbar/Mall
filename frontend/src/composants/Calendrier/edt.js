@@ -42,20 +42,31 @@ class Edt extends React.Component {
   }
 
   moveEvent({ event, start, end }) {
-    const { events } = this.state;
+    const is_sure = window.confirm('vous êtes sûr de changer l\'événement')
 
-    const idx = events.indexOf(event);
-    const updatedEvent = { ...event, start, end };
+    if (is_sure) {
+      const { events } = this.state;
+      const idx = events.indexOf(event);
+      const updatedEvent = { ...event, start, end };
 
-    const nextEvents = [...events];
-    nextEvents.splice(idx, 1, updatedEvent);
-
-    this.setState({
-      events: nextEvents
-    });
+      const nextEvents = [...events];
+      nextEvents.splice(idx, 1, updatedEvent);
+      console.log(nextEvents);
+      this.setState({
+        events: nextEvents
+      })
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'React POST Request Example' })
+      };
+      fetch('http://localhost:5000/AddEvent', requestOptions)
+        .then(response => response.json())
+        .then(data => this.setState({ postId: data.id }));
+    }
   }
 
-  resizeEvent = (resizeType, { event, start, end }) => {
+  resizeEvent({ event, start, end }) {
     const { events } = this.state;
 
     const nextEvents = events.map(existingEvent => {
@@ -67,7 +78,7 @@ class Edt extends React.Component {
     this.setState({
       events: nextEvents
     });
-  };
+  }
 
   componentDidMount = () => {
     var self = this
