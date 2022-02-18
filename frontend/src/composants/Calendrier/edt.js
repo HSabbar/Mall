@@ -1,20 +1,18 @@
 
 import React from 'react';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import '../../index.css';
 import 'moment/locale/en-gb';
 import 'moment/locale/fr';
 import moment from 'moment';
 import axios from 'axios';
-import i18n from 'i18n-js';
-
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+
+const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
-
-
-const localizer = momentLocalizer(moment)
 const messages = { // new
   allDay: 'toute la journée',
   previous: 'Précédent',
@@ -38,7 +36,8 @@ class Edt extends React.Component {
       dayLayoutAlgorithm: 'no-overlap',
     };
     this.moveEvent = this.moveEvent.bind(this);
-    this.onEventResize = this.onEventResize.bind(this)
+    this.resizeEvent = this.resizeEvent.bind(this);
+
   }
 
   moveEvent = async ({ event, start, end }) => {
@@ -65,18 +64,33 @@ class Edt extends React.Component {
       }
 
     }
-  }
-
-  onEventResize = (data) => {
-    const { start, end } = data;
-
-    this.setState((state) => {
-      state.events[0].start = start;
-      state.events[0].end = end;
-      return { events: [...state.events] };
-    });
   };
 
+  resizeEvent = async ({ event, start, end }) => {
+    const is_sure = window.confirm('vous êtes sûr de changer l\'événement')
+
+    if (is_sure) {
+      const { events } = this.state;
+      const idx = events.indexOf(event);
+      const updatedEvent = { ...event, start, end };
+
+      const nextEvents = [...events];
+      nextEvents.splice(idx, 1, updatedEvent);
+
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ updatedEvent })
+      };
+      let result = await fetch('http://localhost:5000/UpdateEvent', requestOptions)
+      if (result) {
+        this.setState({
+          events: nextEvents
+        })
+      }
+    }
+  };
+  
   componentDidMount = () => {
     var self = this
     axios.get('http://localhost:5000/')
@@ -123,19 +137,14 @@ class Edt extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* <p>
-          Ubiz Calendar with mongo .
-        </p> */}
-        <div style={{ height: '580px' }}>
+      <div style={{textAlign: 'center'}}>
+        <div style={{ height: ';500pt', width: '80%', marginLeft: '15%' }}>
           <DragAndDropCalendar
             selectable
+            localizer={localizer}
             events={this.state.events}
             onEventDrop={this.moveEvent}
-            onEventResize={this.onEventResize}
-            resizable
-
-            localizer={localizer}
+            onEventResize={this.resizeEvent}
             defaultView={Views.WEEK}
             scrollToTime={new Date(1970, 1, 1, 6)}
             defaultDate={new Date()}
@@ -143,8 +152,6 @@ class Edt extends React.Component {
             onSelectSlot={this.handleSelect}
             messages={messages}
             dayLayoutAlgorithm={this.state.dayLayoutAlgorithm}
-            culture={i18n.language}
-            views={["month", "week", "day"]}
           />
         </div>
       </div>
@@ -152,5 +159,4 @@ class Edt extends React.Component {
   }
 }
 
-// export default DndProvider(HTML5Backend)(Edt);
 export default Edt
