@@ -3,7 +3,6 @@ import React from 'react';
 import '../../index.css';
 
 
-
 class Acceuil extends React.Component {
   constructor() {
     super();
