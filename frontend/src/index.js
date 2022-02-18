@@ -18,14 +18,9 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-      <Routes>
-        
-       
-         
+      <Routes>      
          <Route path="/"  element={<Acceuil/>}/>
-         <Route path="/calendar"  element={<Edt/>}/>
-
-       
+         <Route path="/calendar"  element={<Edt/>}/>  
       </Routes>
       </div>
     )
