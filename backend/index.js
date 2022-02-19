@@ -34,9 +34,9 @@ console.log("App listen at port 5000");
 app.use(express.json());
 app.use(cors());
 
-app.get("/GetEvent", async (req, res, next) => {
-    const events = await Event.find({});
-    res.status(200).json(events);
+app.get("/", async (req, res, next) => {
+	const events = await Event.find({});
+	res.status(200).json(events);
 });
 
 app.post("/AddEvent", async (req, resp) => {
@@ -47,6 +47,22 @@ app.post("/AddEvent", async (req, resp) => {
 		if (result) {
 			resp.send(req.body);
 			console.log(result);
+		} else {
+			console.log("Event already add");
+		}
+	} catch (e) {
+		resp.send("Something Went Wrong");
+	}
+});
+
+app.post("/UpdateEvent", async (req, resp) => {
+	try {
+		const user_id = req.body.updatedEvent._id
+		const event = { start: req.body.updatedEvent.start, end: req.body.updatedEvent.end };
+		console.log(event);
+		let result = await Event.findByIdAndUpdate(user_id, event);
+		if (result) {
+			resp.send(req.body.updatedEvent);
 		} else {
 			console.log("Event already add");
 		}

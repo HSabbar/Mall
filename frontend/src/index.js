@@ -18,15 +18,12 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-      <Routes>
-        
-       
-         
+        <BrowserRouter>
+      <Routes>      
          <Route path="/"  element={<Acceuil/>}/>
-         <Route path="/calendar"  element={<Edt/>}/>
-
-       
+         <Route path="/calendar"  element={<Edt/>}/>  
       </Routes>
+      </BrowserRouter>
       </div>
     )
     } catch {
@@ -34,4 +31,4 @@ class App extends Component {
     }
   }
 }
-render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
+render(<App />, document.getElementById('root'));
