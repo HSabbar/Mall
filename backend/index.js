@@ -1,10 +1,38 @@
 // For backend and express
 const express = require('express');
-const app = express();
 const cors = require("cors");
-
-// To connect with your mongoDB database
 const mongoose = require('mongoose');
+const passport = require('passport');
+const passportLocal = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+
+
+const Event = require('./models/Event');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+
+app.use(session({
+    secret: "secretCode",
+	resave: true,
+	saveUninitialized: true
+}));
+
+
+
+app.use(cookieParser("secretCode"))
+
+app.use(cors({
+	origin: "http://localhost:3000",
+	credentials: true
+}))
+// To connect with your mongoDB database
 mongoose.connect('mongodb://localhost:27018/', {
 	dbName: 'Events',
 	useNewUrlParser: true,
@@ -12,23 +40,7 @@ mongoose.connect('mongodb://localhost:27018/', {
 }, err => err ? console.log(err) :
 	console.log('Connected to Events database'));
 
-// Schema for users of app
-const EventSchema = new mongoose.Schema({
-	title: {
-		type: String,
-		required: true,
-	},
-	start: {
-		type: Date,
-		required: true,
-	},
-	end: {
-		type: Date,
-		required: true,
-	},
-});
-const Event = mongoose.model('event', EventSchema);
-Event.createIndexes();
+//Event.createIndexes();
 
 console.log("App listen at port 5000");
 app.use(express.json());
@@ -38,6 +50,16 @@ app.get("/", async (req, res, next) => {
 	const events = await Event.find({});
 	res.status(200).json(events);
 });
+
+app.post("/register", (req, res) => {
+	console.log(req.body);
+})
+
+app.post("/login", (req, res) => {
+	console.log(req.body);
+})
+
+app.get("/user", (req, res) => {})
 
 app.post("/AddEvent", async (req, resp) => {
 	try {

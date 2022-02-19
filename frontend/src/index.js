@@ -5,6 +5,8 @@ import Navbar from './composants/Navbar/Navbar'
 import Acceuil from './composants/Acceuil/Acceuil'
 import './index.css'
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import Register from './composants/Auth/Register'
+import Login from './composants/Auth/Login'
 
 class App extends Component {
   constructor() {
@@ -20,7 +22,7 @@ class App extends Component {
         <Navbar />
         <BrowserRouter>
       <Routes>      
-         <Route path="/"  element={<Acceuil/>}/>
+         <Route path="/"  element={<><Acceuil /><Login /></>}/>
          <Route path="/calendar"  element={<Edt/>}/>  
       </Routes>
       </BrowserRouter>
