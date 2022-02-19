@@ -138,7 +138,7 @@ class Edt extends React.Component {
   render() {
     return (
       <div style={{textAlign: 'center'}}>
-        <div style={{ height: ';500pt', width: '80%', marginLeft: '15%' }}>
+        <div style={{ height: ';500pt', width: '80%', marginLeft: '10%' }}>
           <DragAndDropCalendar
             selectable
             localizer={localizer}
