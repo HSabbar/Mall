@@ -1,0 +1,23 @@
+.login{
+    padding: 16px 8px;
+    width: 40%;
+    border-radius: 4px;
+    background-color: rgb(201, 197, 245);
+    z-index: 2;
+}
+
+.login-input-group {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.login-input{
+  margin-top: 15px;
+  display: block;
+  margin-left: 10%;
+  width: 80%;
+  height: 35px;
+}
+.btn-login{
+    margin-top: 10px;
+}
