@@ -21,8 +21,9 @@ class App extends Component {
         <Navbar />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<><Acceuil /><Register /></>} />
+            <Route path="/" element={<Acceuil />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/calendar" element={<Edt />} />
           </Routes>
         </BrowserRouter>
