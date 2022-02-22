@@ -13,7 +13,7 @@ function Register() {
     axios({
       method: "post",
       data: {
-        username: registerUsername,
+        email: registerUsername,
         password: registerPassword
       },
       //      withCredentials: true,

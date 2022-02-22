@@ -18,7 +18,7 @@ function Login() {
       },
       withCredentials: true,
       url: "http://localhost:5000/login"
-    }).then((res) => console.log(res))
+    }).then((res) => {if(res.data.user) window.location.replace("http://localhost:3000/");})
   };
 
   return (
