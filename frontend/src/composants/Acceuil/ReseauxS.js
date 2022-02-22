@@ -19,11 +19,10 @@ class ReseauxS extends React.Component {
   render() {
     return (
       <div className="rs-container">
-
-        <img className="background-img" src={fb.img} alt={fb.alt}/>
-        <img className="background-img" src={insta.img} alt={insta.alt}/>
-        <img className="background-img" src={linkedin.img} alt={linkedin.alt}/>
-        <img className="background-img" src={twitter.img} alt={twitter.alt}/>
+        <img className="background-img-rs" src={fb.img} alt={fb.alt}/>
+        <img className="background-img-rs" src={insta.img} alt={insta.alt}/>
+        <img className="background-img-rs" src={linkedin.img} alt={linkedin.alt}/>
+        <img className="background-img-rs" src={twitter.img} alt={twitter.alt}/>
       </div>
     );
   }

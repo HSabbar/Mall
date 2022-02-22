@@ -1,6 +1,13 @@
 .rs-container {
+    display: block;
+    transform: rotate(318deg);
+    position: absolute;
+    bottom: 140px;
+    right: 310px;
+
 
 }
-.background-img {
-    border: 1px solid black;
+.background-img-rs {
+    margin-right: 40px;
+    display: inline-table;
 }
