@@ -3,12 +3,14 @@ import './Button.css'
 
 const STYLES = [
    'btn--primary',
-   'btn--outline'
+   'btn--outline',
+   'btn--secondary'
 ]
 
 const SIZES = [
     'btn--medium',
-    'btn--large'
+    'btn--large',
+    'btn--medium--large'
 ]
 
 export const Button = ({

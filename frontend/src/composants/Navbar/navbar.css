@@ -1,6 +1,6 @@
 .NavbarItems {
 /*    background: linear-gradient(90deg, rgb(110, 94, 254) 0%, rgba(73, 63, 252, 1) 100%); */
-   border-bottom: 1px solid #6568F4;
+   border-bottom: 0.7px solid #dadbff;
     height: 80px;
     display: flex;
     justify-content: center;

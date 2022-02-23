@@ -1,0 +1,53 @@
+.register{
+    padding: 16px 8px;
+    width: 40%;
+    margin-left: 30%;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 231);
+    z-index: 2;
+    position: relative;
+}
+
+.register-h1 {
+  margin-bottom: 25px;
+}
+
+.img-register {
+  display: inline-table;
+  margin-left: 5px;
+
+}
+.p-register {
+  display: inline-table;
+  font-size: 11px;
+
+}
+.imgp-register {
+  position: absolute;
+  display: block;
+  bottom: 16px;
+  right: 16px;
+}
+
+.register-input-group {
+  margin-top: 15px;
+}
+.register-input{
+  border-radius: 4px;
+  margin-bottom: 16px;
+  display: block;
+  margin-left: 10%;
+  width: 80%;
+  padding: 16px 8px;
+  height: 37px;
+}
+.mdp {
+  padding: 16px 0px;
+  margin-left: -53%;
+  font-size: 13px;
+}
+
+.btn-register{
+  margin-top: 22px;
+  margin-bottom: 30px;
+}

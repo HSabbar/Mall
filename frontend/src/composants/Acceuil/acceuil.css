@@ -1,0 +1,13 @@
+.acceuil-container {
+    position: relative;
+    padding: 16px 8px;
+    display: block;
+    height: 90vh;
+}
+.background-img {
+    display: inline;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+
+}
