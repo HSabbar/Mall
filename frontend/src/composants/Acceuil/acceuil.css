@@ -1,13 +1,42 @@
 .acceuil-container {
     position: relative;
     padding: 16px 8px;
-    display: block;
+    display: flex;
     height: 90vh;
 }
-.background-img {
-    display: inline;
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
 
+.h2-acceuil-child {
+   width: 75%;
+   text-align: center;
+   margin-left: 12.5%;
+}
+
+.h2-acceuil-child-a {
+    color: #FEAE00;
+}
+
+.acceuil-child {
+    display: block;
+    padding: 15vh 0px;
+    text-align: center;
+    height: 90vh;
+    margin-left: 3%;
+    width: 55%;
+}
+
+.h4-acceuil {
+    transform: rotate(90deg);
+    height: 5vh;
+    width: 65vh;
+    position: absolute;
+    right: -200px;
+    bottom: 40vh;
+}
+
+.acceuil-child1 {
+    padding: 14vh 20px ;
+    display: block;
+    height: 90vh;
+    margin-left: 2.5%;
+    width: 35%;
 }

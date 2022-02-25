@@ -50,19 +50,30 @@ app.get("/", async (req, res, next) => {
 });
 
 app.post("/register", (req, res) => {
-	User.findOne({ username: req.body.username }, async (err, doc) => {
+	User.findOne({ email: req.body.email }, async (err, doc) => {
 		if (err) throw err;
-		if (doc) res.send("User Already Exists");
+		if (doc) {
+			e = {
+				user: null,
+				message: "User Already Exists"
+			}
+			res.status(201).json(e);
+		}		
 		if (!doc) {
 			const hashedPassword = await bcrypt.hash(req.body.password, 15);
 			console.log(req.body)
 			const newUser = new User({
-				username: req.body.username,
+				nom: "default",
+				prenom: "prénom",
+				email: req.body.email,
 				password: hashedPassword,
 			});
 			await newUser.save();
-
-			res.send("User Created");
+			e = {
+				user: newUser,
+				message: "User created"
+			}
+			res.status(200).json(e);
 
 		}
 	})
@@ -73,18 +84,16 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res, next) => {
 	passport.authenticate("local", (err, user, info) => {
 		if (err) throw err;
-		if (!user) res.send("No User Exists");
+		if (!user) res.status(201).json({user: null, message: "No User Exists"});
 		else {
 			req.login(user, (err) => {
 				if (err) throw err;
-				res.send('Successfully Authenticated');
+				res.status(200).json({user: user, message: "Successfully Authenticated"})
 				console.log(req.user);
 			});
 		}
 	})(req, res, next);
 });
-
-app.get("/user", (req, res) => { })
 
 app.post("/AddEvent", async (req, resp) => {
 	try {

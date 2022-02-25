@@ -18,8 +18,14 @@ function Login() {
       },
       withCredentials: true,
       url: "http://localhost:5000/login"
-    }).then((res) => {if(res.data.user) window.location.replace("http://localhost:3000/");})
-  };
+    }).then((res) => {
+      if(res.data.user) {
+        window.location.replace("http://localhost:3000/calendar");
+      }  else {
+        console.log(res);
+      }
+  });
+}
 
   return (
     <div className="login" style={{ textAlign: 'center' }}>

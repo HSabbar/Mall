@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 
 // Schema for users of app
 const UserSchema = new mongoose.Schema({
-    username: {
+    nom: {
+        type: String,
+    },
+    prenom: {
+        type: String,
+    },
+    email: {
         type: String,
     },
     password: {

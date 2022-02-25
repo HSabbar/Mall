@@ -5,23 +5,23 @@ export const MenuItems = [
         cName: 'nav-links'
     },
     {
-        title: "Calendar",
+        title: "About",
         url: '/calendar',
         cName: 'nav-links'
     },
     {
-        title: "Products",
+        title: "Contact",
         url: '#',
         cName: 'nav-links'
     },
     {
-        title: "Contact Us",
+        title: "Se connecter",
         url: '#',
         cName: 'nav-links'
     },
     {
         title: "Sign up",
         url: '#',
-        cName: 'nav-links-mobile'
+        cName: 'nav-links'
     },
 ]
