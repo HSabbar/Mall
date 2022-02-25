@@ -8,6 +8,7 @@
 .h2-acceuil-child {
    width: 75%;
    text-align: center;
+   margin-bottom: 20px;
    margin-left: 12.5%;
 }
 
@@ -17,11 +18,12 @@
 
 .acceuil-child {
     display: block;
-    padding: 15vh 0px;
+    padding: 15vh 0px 0px 30px;
     text-align: center;
     height: 90vh;
     margin-left: 3%;
-    width: 55%;
+    width: 58%;
+    border-right: 0.25px solid #ddd;
 }
 
 .h4-acceuil {
